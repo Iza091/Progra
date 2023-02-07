@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- IE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <title>ACADEMICA</title>
+    <title>::.. APP ACADEMICA ..::</title>
 </head>
 <body><!-- Contenido de la pagina html -->
     <div class="container" id="app">
@@ -18,13 +18,13 @@
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">CODIGO:</div>
                                 <div class="col-9 col-md-3">
-                                    <input class="form-control"  required placeholder="Codigo"type="text" v-model="docente.codigo" name="txtCodigoDocente" id="txtCodigoDocente">
+                                    <input class="form-control" type="text" v-model="docente.codigo" name="txtCodigoDocente" id="txtCodigoDocente">
                                 </div>
                             </div>
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">NOMBRE:</div>
                                 <div class="col-9 col-md-6">
-                                    <input class="form-control"  placeholder="Nombre" type="text" v-model="docente.nombre" name="txtNombreDocente" id="txtNombreDocente">
+                                    <input class="form-control" type="text" v-model="docente.nombre" name="txtNombreDocente" id="txtNombreDocente">
                                 </div>
                             </div>
                             <div class="row p-1">
@@ -43,28 +43,33 @@
                 <div class="card text-bg-light">
                     <div class="card-header">CONSULTA DE DOCENTES</div>
                     <div class="card-body">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                                <tr>
-                                    <th>CODIGO</th>
-                                    <th>NOMBRE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="docente in docentes" :key="docente.idDocente">
-                                    <td>{{docente.codigo}}</td>
-                                    <td>{{docente.nombre}}</td>
-                                    <td><button @click.prevent="eliminarDocente(docente)" class="btn btn-danger">Eliminar</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <form>
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>BUSCAR:</th>
+                                        <th colspan="2"><input type="text" @keyup="listarDocentes()" v-model="buscar" 
+                                            class="form-control" placeholder="Busar por nombre" ></th>
+                                    </tr>
+                                    <tr>
+                                        <th>CODIGO</th>
+                                        <th colspan="2">NOMBRE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="docente in docentes" @click='modificarDocente(docente)' :key="docente.idDocente">
+                                        <td>{{docente.codigo}}</td>
+                                        <td>{{docente.nombre}}</td>
+                                        <td><button @click.prevent="eliminarDocente(docente)" class="btn btn-danger">Eliminar</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -72,7 +77,9 @@
         createApp({
             data() {
                 return {
+                    buscar: '',
                     docentes:[],
+                    accion : 'nuevo',
                     docente:{
                         idDocente:0,
                         codigo:'',
@@ -82,43 +89,45 @@
             },
             methods:{
                 nuevoDocente(){
+                    this.accion = 'nuevo';
                     this.docente.idDocente = '';
                     this.docente.codigo = '';
                     this.docente.nombre = '';
                 },
+                modificarDocente(docente){
+                    this.accion = 'modificar';
+                    this.docente = docente;
+                },
                 guardarDocente(){
                     this.listarDocentes();
-                    if (this.accion==='nuevo'){
-                        this.docente.idDocente= new Date().getTime().toString(16); //La cantidad de milisegundos a hex
-                        this.docentes.push (JSON.parse(JSON.stringify(this.docente)));
-            
-                    } else if (this.accion==='modificar'){
-                    let index= this.docentes.findIndex(docente=>docente.idDocente==this.docente.idDocente);
-                    this.docentes [index]= JSON.parse(JSON.stringify(this.docente));
-
-                    } else if (this.accion=='eliminar'){
-                    let index =this.docentes.findIndex(docente=>docente.idDocente==this.docente.idDocente);
-                    this.docentes.slice(index,1);
+                    if( this.accion==='nuevo' ){
+                        this.docente.idDocente = new Date().getTime().toString(16);//las cantidad milisegundos y lo convierte en hexadecimal
+                        this.docentes.push( JSON.parse(JSON.stringify(this.docente)) );
+                    }else if(this.accion==='modificar'){
+                        //hacer la busqueda y modificar el registro
+                        let index = this.docentes.findIndex(docente=>docente.idDocente==this.docente.idDocente);
+                        this.docentes[index] = JSON.parse(JSON.stringify(this.docente));
+                    }else if(this.accion==='eliminar'){
+                        let index = this.docentes.findIndex(docente=>docente.idDocente==this.docente.idDocente);
+                        this.docentes.splice(index, 1);
                     }
-                    
                     localStorage.setItem('docentes', JSON.stringify(this.docentes));
                     this.nuevoDocente();
                 },
                 eliminarDocente(docente){
-                if (confirm ( `Está seguro de eliminar el docente $(docente.nombre)?`)){
+                    if( confirm(`Esta seguro de eliminar el docente ${docente.nombre}?`) ){
                         this.accion="eliminar";
-                        this.docente=docente
+                        this.docente = docente;
                         this.guardarDocente();
                     }
                 },
-    
-                listarDocentes(buscar=''){
-                this.docentes=JSON.parse( localStorage.getItem('docentes') || "[]" )
-                   .filter(docente=>docente.nombre.toLowerCase().indexOf(buscar.toLowerCase())>-1);
+                listarDocentes(){
+                    this.docentes = JSON.parse( localStorage.getItem('docentes') || "[]" )
+                        .filter(docente=>docente.nombre.toLowerCase().indexOf(this.buscar.toLowerCase())>-1);
                 }
             },
             created(){
-                this.docentes = this.listarDocentes();
+                this.listarDocentes();
             }
         }).mount('#app')
     </script>
