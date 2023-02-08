@@ -16,15 +16,15 @@
                     <div class="card-body">
                         <form id="frmDocente" @submit.prevent="guardarDocente" @reset.prevent="nuevoDocente()">
                             <div class="row p-1">
-                                <div class="col-3 col-md-2">CODIGO:</div>
+                                <div class="col-3 col-md-3">CODIGO:</div>
                                 <div class="col-9 col-md-3">
-                                    <input class="form-control" type="text" v-model="docente.codigo" name="txtCodigoDocente" id="txtCodigoDocente">
+                                    <input class="form-control" type="text" required placeholder="0000" v-model="docente.codigo" name="txtCodigoDocente" id="txtCodigoDocente">
                                 </div>
                             </div>
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">NOMBRE:</div>
                                 <div class="col-9 col-md-6">
-                                    <input class="form-control" type="text" v-model="docente.nombre" name="txtNombreDocente" id="txtNombreDocente">
+                                    <input class="form-control" type="text" placeholder="Nombre" v-model="docente.nombre" name="txtNombreDocente" id="txtNombreDocente">
                                 </div>
                             </div>
                             <div class="row p-1">
