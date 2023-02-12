@@ -94,7 +94,7 @@
                             <label for="txtTelefonoAlumno">TELEFONO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[0-9|-]{9}"  required placeholder="0000-0000" v-model="alumno.telefono" type="number"
+                            <input required pattern="[0-9|-]{9}"  required placeholder="0000-0000" v-model="alumno.telefono" type="text"
                                 class="form-control" name="txtTelefonoAlumno" id="txtTelefonoAlumno">
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                             <label for="txtDireccionAlumno">DIRECCION</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input v-model="alumno.direccion"  required pattern="text" placeholder="DIRECCION" type="text" class="form-control" name="txtDireccionAlumno"
+                            <input v-model="alumno.direccion"  required placeholder="DIRECCION" type="text" class="form-control" name="txtDireccionAlumno"
                                 id="txtDireccionAlumno">
                         </div>
                     </div>
