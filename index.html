@@ -54,7 +54,7 @@
                             <label for="txtGeneroAlumno">SEXO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                                <select v-model="alumno.genero" type="selected" class="form-control" name="txtGeneroAlumno" id="txtGeneroAlumno">
+                                <select  required pattern="selected" v-model="alumno.genero" type="selected" class="form-control" name="txtGeneroAlumno" id="txtGeneroAlumno">
                                     <option disabled value="">Seleccione genero</option>
                                     <option>Masculino</option>
                                     <option>Femenino</option>
@@ -94,7 +94,7 @@
                             <label for="txtTelefonoAlumno">TELEFONO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[0-9|-]{9}" placeholder="0000-0000" v-model="alumno.telefono" type="text"
+                            <input required pattern="[0-9|-]{9}"  required placeholder="0000-0000" v-model="alumno.telefono" type="number"
                                 class="form-control" name="txtTelefonoAlumno" id="txtTelefonoAlumno">
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                             <label for="txtDireccionAlumno">DIRECCION</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input v-model="alumno.direccion" placeholder="DIRECCION" type="text" class="form-control" name="txtDireccionAlumno"
+                            <input v-model="alumno.direccion"  required pattern="text" placeholder="DIRECCION" type="text" class="form-control" name="txtDireccionAlumno"
                                 id="txtDireccionAlumno">
                         </div>
                     </div>
