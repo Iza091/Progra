@@ -175,6 +175,7 @@
         createApp({
             data() {
                 return {
+                    db:'',
                     accion: 'nuevo',
                     buscar: '',
                     alumnos: [],
@@ -193,21 +194,19 @@
             },
             methods: {
                 guardarAlumno() {
-                    this.listarAlumnos();
+                    let  store= this.abrirStore('tblalumnos','readwrite');
                     if (this.accion === 'nuevo') {
                         this.alumno.idAlumno = new Date().getTime().toString(16);
-                        this.alumnos.push(JSON.parse(JSON.stringify(this.alumno)));
-                    } else if (this.accion === 'modificar') {
-                        let index = this.alumnos.findIndex(alumno => alumno.idAlumno == this.alumno
-                            .idAlumno);
-                        this.alumnos[index] = JSON.parse(JSON.stringify(this.alumno));
-                    } else if (this.accion === 'eliminar') {
-                        let index = this.alumnos.findIndex(alumno => alumno.idAlumno == this.alumno
-                            .idAlumno);
-                        this.alumnos.splice(index, 1);
+                       
+                    } 
+                    let query= store.put(JSON.parse(JSON.stringify(this.alumno)));
+                    query.onsuccess=resp=>{
+                        this.nuevoAlumno();
+                    };
+                    query.onerror=err=>{
+                        console.error('ERROR al guardar alumno', err);
                     }
-                    localStorage.setItem("alumnos", JSON.stringify(this.alumnos));
-                    this.nuevoAlumno();
+                    
                 },
                 eliminarAlumno(alumno) {
                     if (confirm(`Esta seguro de eliminar a ${alumno.nombre}?`)) {
@@ -218,7 +217,7 @@
                 },
                 nuevoAlumno() {
                     this.accion = 'nuevo';
-                    this.alumno.idAlumno = '';
+                    this.alumno.idAlumnos = '';
                     this.alumno.codigo = '';
                     this.alumno.nombre = '';
                     this.alumno.apellido = '';
@@ -233,14 +232,50 @@
                     this.alumno = alumno;
                 },
                 listarAlumnos() {
-                    this.alumnos = JSON.parse(localStorage.getItem('alumnos') || "[]","[]")
-                    .filter(alumno => alumno.nombre.toLowerCase().indexOf(this.buscar.toLowerCase()) > -
-                        1);
+                    let store=this.abrirStore('tblalumnos','readonly'), 
+                    data=store.getAll();
+                    
+
+                  data.onsuccess= resp=>{
+                    this.alumnos=data.result;
+
+                  } 
+                },
+                abrirBD(){
+                    let indexDB=indexedDB.open('db_sistema_academico,', 1 );
+                    indexDB.onupgradeneeded = e=>{
+                        let req= e.target.result,
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'idAlumnos'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Codigo'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Nombre'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Apellido'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Genero'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Dui'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Edad'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Telefono'});
+                        tblalumnos=req.createObjectStore('tblalumnos', {keyPath:'Direccion'});
+                    tblalumnos.createIndex('idAlumnos','idAlumnos', {unique:true});
+                    tblalumnos.createIndex('codigo','codigo', {unique:true});
+                   
+                    };
+                    indexDB.onsuccess = e=>{
+                        this.db=e.target.result;
+                        this.listarAlumnos();
+                    };
+                    indexDB.onerror= e=>{
+                        console.error('ERROR al crear, abrir la BD', e);
+                    };
+                },
+                 abrirStore(store,modo){
+                 
+                    let ltx= this.db.transaction(store,modo);
+                    return ltx.objectStore(store);
                 }
             },
             created() {
-                this.listarAlumnos();
+                this.abrirBD();
             }
+
         }).mount('#app');
     </script>
     <footer class="text-center bg-primary">
