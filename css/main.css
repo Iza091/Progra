@@ -1,0 +1,10 @@
+
+.navbar-nav:hover{
+    cursor:pointer;
+}
+.nav-link:hover{
+    background-color: black;
+}
+.navbar-toggler{
+    background-color: white;
+}
