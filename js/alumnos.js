@@ -252,7 +252,7 @@ Vue.component('component-alumnos',{
                             <tbody>
                                 <tr v-for="alumno in alumnos" :key="alumno.idAlumno" @click="modificarAlumno(alumno)" >
                                     <td>{{ alumno.codigo }}</td>
-                                    <td>{{ alumno.codigo }} - {{alumno.nombre}}</td>
+                                    <td>{{alumno.nombre}}</td>
                                     <td>{{ alumno.fecha }}</td>
                                     <td>{{ alumno.direccion }}</td>
                                     <td>{{ alumno.municipio }}</td>
