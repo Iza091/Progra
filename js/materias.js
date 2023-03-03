@@ -52,15 +52,15 @@ Vue.component('component-materias',{
     template: `
         <div class="row">
             <div class="col-12 col-md-6">
-                <div class="card text-center">
-                    <div class="card-header text-bg-dark text-white">REGISTRO DE MATERIA</div>
+                <div class="card">
+                    <div class="card-header">REGISTRO DE MATERIA</div>
                     <div class="card-body">
                         <form id="frmMateria" @reset.prevent="nuevoMateria" v-on:submit.prevent="guardarMateria">
                             <div class="row p-1">
                                 <div class="col-3 col-md-2">
                                     <label for="txtCodigoMateria">CODIGO:</label>
                                 </div>
-                                <div class="col-9 col-md-6">
+                                <div class="col-3 col-md-3">
                                     <input required pattern="[0-9]{3}" 
                                         title="Ingrese un codigo de materia de 3 digitos"
                                             v-model="materia.codigo" type="text" class="form-control" name="txtCodigoMateria" id="txtCodigoMateria">
@@ -71,7 +71,7 @@ Vue.component('component-materias',{
                                     <label for="txtNombreMateria">NOMBRE:</label>
                                 </div>
                                 <div class="col-9 col-md-6">
-                                    <input required pattern="[A-Za-zÑñáéíóú ]{3,150}"
+                                    <input required pattern="[A-Za-zÑñáéíóú ]{3,75}"
                                         v-model="materia.nombre" type="text" class="form-control" name="txtNombreMateria" id="txtNombreMateria">
                                 </div>
                             </div>
@@ -89,8 +89,8 @@ Vue.component('component-materias',{
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="card text-center">
-                    <div class="card-header text-bg-success text-white">LISTADO DE MATERIAS</div>
+                <div class="card">
+                    <div class="card-header">LISTADO DE MATERIAS</div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -102,8 +102,7 @@ Vue.component('component-materias',{
                                 </tr>
                                 <tr>
                                     <th>CODIGO</th>
-                                    <th >NOMBRE</th>
-                                    <th>ELIMINAR</th>
+                                    <th colspan="2">NOMBRE</th>
                                 </tr>
                             </thead>
                             <tbody>

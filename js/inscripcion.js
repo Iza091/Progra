@@ -1,15 +1,26 @@
+Vue.component('v-select-alumnos', VueSelect.VueSelect);
+Vue.component('v-select-materias', VueSelect.VueSelect);
+
 Vue.component('component-inscripciones',{
     data() {
         return {
             accion:'nuevo',
             buscar: '',
             matriculas:[],
+            alumnos:[],
             materias:[],
             inscripciones: [],
             inscripcion:{
                 idInscripcion : '',
                 nombre:'',
-                materia:'',
+                materia   : {
+                    id    : '',
+                    label : ''
+                },
+                alumno    : {
+                    id    : '',
+                    label : ''
+                },
             }
         }
     },
@@ -35,8 +46,10 @@ Vue.component('component-inscripciones',{
         nuevoInscripcion(){
             this.accion = 'nuevo';
             this.inscripcion.idInscripcion = '';
-            this.inscripcion.nombre = '';
-            this.inscripcion.materia='';
+            this.inscripcion.materia.id = '';
+            this.inscripcion.materia.label = '';
+            this.inscripcion.alumno.id = '';
+            this.inscripcion.alumno.label = '';
             
         },
         modificarInscripcion(inscripcion){
@@ -66,6 +79,21 @@ Vue.component('component-inscripciones',{
                 this.materias = data.result
                 
             };
+            this.inscripcion = JSON.parse( localStorage.getItem('inscripcion') || "[]" )
+            .filter(inscripcion=>inscripcion.alumno.label.toLowerCase().indexOf(this.buscar.toLowerCase())>-1);
+            this.materias = JSON.parse( localStorage.getItem('materias') || "[]" ).map(materia=>{
+                return { 
+                    id: materia.idMateria,
+                    label : materia.nombre
+                }
+            },
+            this.alumnos = JSON.parse( localStorage.getItem('alumnos') || "[]" ).map(alumno=>{
+            return { 
+                id: alumno.idAlumno,
+                label : alumno.nombre
+            }
+            }));
+
         },
         abrirStore(store, modo){
             // let tx = this.db.transaction(store, modo); 
@@ -112,10 +140,7 @@ Vue.component('component-inscripciones',{
                                     <label for="txtCodigoInscripcion">Alumnos Matriculados:</label>
                                 </div>
                                 <div class="col-6 col-md-6">
-                                <select required class="form-control" v-model="inscripcion.nombre">
-                                    <option v-for="matricula in matriculas" :value="matricula.nombre">{{matricula.nombre}}</option>
-                                </select>
-                                </div>
+                                <v-select-alumnos required v-model="inscripcion.alumno" :options="alumnos" ></v-select-alumnos>
                             </div>
 
                             <div class="row p-1">
@@ -123,9 +148,7 @@ Vue.component('component-inscripciones',{
                                     <label for="txtMateria">Materia para Inscribir:</label>
                                 </div>
                                 <div class="col-6 col-md-6">
-                                <select required class="form-control" v-model="inscripcion.materia">
-                                    <option v-for="materia in materias" :value="materia.materia">{{materia.codigo}}-{{materia.materia}}</option>
-                                </select>
+                                <v-select-materias required v-model="inscripcion.materia" :options="materias" ></v-select-materias>
                                 </div>
                             </div>
 
@@ -164,11 +187,11 @@ Vue.component('component-inscripciones',{
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="inscripcion in inscripciones" :key="inscripcion.idInscripcion" @click="modificarInscripcion(inscripcion)" >
-                                    <td>{{ inscripcion.nombre }}</td>
-                                    <td>{{ inscripcion.materia }}</td>
-                                    <td><button class="btn btn-danger" @click="eliminarInscripcion(inscripcion)">ELIMINAR</button></td>
-                                </tr>
+                            <tr v-for="inscripcion in inscripciones" :key="inscripcion.idInscripcion" @click="modificarInscripcion(inscripcion)" >
+                            <td>{{ inscripcion.alumno.label }}</td>
+                            <td>{{ inscripcion.materia.label }}</td>
+                            <td><button class="btn btn-danger" @click="eliminarInscripcion(inscripcion)">ELIMINAR</button></td>
+                        </tr>
                             </tbody>
                         </table>
                     </div>
