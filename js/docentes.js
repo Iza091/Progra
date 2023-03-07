@@ -98,7 +98,7 @@ Vue.component('component-docentes',{
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="card">
-                    <div class="card-header bg-dark text-white">REGISTRO DE DOCENTE</div>
+                    <div class="card-header bg-dark text-white text-center">REGISTRO DE DOCENTE</div>
                     <div class="card-body">
                         <form id="frmDocente" @reset.prevent="nuevoDocente" v-on:submit.prevent="guardarDocente">
 
@@ -212,9 +212,9 @@ Vue.component('component-docentes',{
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-12">
+            <div class="col-12 col-md-10">
                 <div class="card">
-                    <div class="card-header bg-dark text-white">LISTADO DE DOCENTES</div>
+                    <div class="card-header bg-dark text-white text-center">LISTADO DE DOCENTES</div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
                             <thead>

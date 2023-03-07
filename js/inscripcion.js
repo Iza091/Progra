@@ -131,7 +131,7 @@ Vue.component('component-inscripciones',{
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="card">
-                    <div class="card-header bg-warning ">REGISTRO DE ALUMNOS</div>
+                    <div class="card-header text-center bg-danger text-white ">INSCRIPCION DE ALUMNOS</div>
                     <div class="card-body">
                         <form id="frmInscripcion" @reset.prevent="nuevoInscripcion" v-on:submit.prevent="guardarInscripcion">
 
@@ -166,10 +166,10 @@ Vue.component('component-inscripciones',{
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-12">
-            
+
+            <div class="col-12 col-md-6">
                 <div class="card">
-                    <div class="card-header bg-danger text-white">LISTADO DE ALUMNOS</div>
+                    <div class="card-header bg-primary text-center text-white">ALUMNOS INSCRITOS</div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
                             <thead>

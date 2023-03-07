@@ -53,7 +53,7 @@ Vue.component('component-materias',{
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="card">
-                    <div class="card-header">REGISTRO DE MATERIA</div>
+                    <div class="card-header text-center text-white bg-primary ">REGISTRO DE MATERIA</div>
                     <div class="card-body">
                         <form id="frmMateria" @reset.prevent="nuevoMateria" v-on:submit.prevent="guardarMateria">
                             <div class="row p-1">
@@ -63,7 +63,7 @@ Vue.component('component-materias',{
                                 <div class="col-3 col-md-3">
                                     <input required pattern="[0-9]{3}" 
                                         title="Ingrese un codigo de materia de 3 digitos"
-                                            v-model="materia.codigo" type="text" class="form-control" name="txtCodigoMateria" id="txtCodigoMateria">
+                                           placeholder="123" v-model="materia.codigo" type="text" class="form-control" name="txtCodigoMateria" id="txtCodigoMateria">
                                 </div>
                             </div>
                             <div class="row p-1">
@@ -72,7 +72,7 @@ Vue.component('component-materias',{
                                 </div>
                                 <div class="col-9 col-md-6">
                                     <input required pattern="[A-Za-zÑñáéíóú ]{3,75}"
-                                        v-model="materia.nombre" type="text" class="form-control" name="txtNombreMateria" id="txtNombreMateria">
+                                       placeholder="Nombre de la materia" v-model="materia.nombre" type="text" class="form-control" name="txtNombreMateria" id="txtNombreMateria">
                                 </div>
                             </div>
                             <div class="row p-1">
@@ -90,7 +90,7 @@ Vue.component('component-materias',{
             </div>
             <div class="col-12 col-md-6">
                 <div class="card">
-                    <div class="card-header">LISTADO DE MATERIAS</div>
+                    <div class="card-header text-center text-white bg-dark">LISTADO DE MATERIAS</div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
                             <thead>
