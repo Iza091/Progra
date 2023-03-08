@@ -1,10 +1,16 @@
 
 .navbar-nav:hover{
     cursor:pointer;
+    
 }
+
 .nav-link:hover{
-    background-color: black;
+    background: black;
+    display: grid;
+    padding: 4px 0;
 }
+
 .navbar-toggler{
     background-color: white;
+    
 }

@@ -130,7 +130,7 @@ Vue.component('component-matriculas',{
                                     <th>BUSCAR:</th>
                                     <th colspan="3"><input type="text" class="form-control" v-model="buscar"
                                         @keyup="listar()"
-                                        placeholder="Buscar por codigo o nombre"></th>
+                                        placeholder="Buscar por matricula o nombre"></th>
                                 </tr>
                                 <tr>
                                     <th>FECHA</th>

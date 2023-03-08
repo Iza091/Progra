@@ -105,7 +105,7 @@ Vue.component('component-alumnos',{
 
                             <div class="row p-1">
                                 <div class="col-3 col-md-4">
-                                    <label for="txtCodigoAlumno">Codigo:</label>
+                                    <label for="txtCodigoAlumno">Código:</label>
                                 </div>
                                 <div class="col-6 col-md-6">
                                     <input required pattern="[US | SM]{2}[IS | LI]{2}[0-9]{6}" 
@@ -138,7 +138,7 @@ Vue.component('component-alumnos',{
 
                             <div class="row p-1">
                                 <div class="col-3 col-md-4">
-                                    <label for="txtDireccionAlumno">Direccion:</label>
+                                    <label for="txtDireccionAlumno">Dirección:</label>
                                 </div>
                                 <div class="col-6 col-md-6">
                                     <input required pattern="[A-Za-zÑñáéíóú ]{3,75}"
@@ -171,7 +171,7 @@ Vue.component('component-alumnos',{
 
                             <div class="row p-1">
                                 <div class="col-3 col-md-4">
-                                    <label for="txtTelefonoAlumno">Telefono:</label>
+                                    <label for="txtTelefonoAlumno">Teléfono:</label>
                                 </div>
                                 <div class="col-6 col-md-6">
                                     <input required pattern="[0-9]{4}-[0-9]{4]"
@@ -198,7 +198,7 @@ Vue.component('component-alumnos',{
                             <div class="col-6 col-md-6">
                                 <select  required                    
                                         v-model="alumno.sexo"  class="form-control" name="txtSexoAlumno" id="txtSexoAlumno">
-                                        <option disabled value="">Seleccione genero</option>
+                                        <option disabled value="">Seleccione género</option>
                                         <option>Masculino</option>
                                         <option>Femenino</option>
                                         <option>No binario</option>   
@@ -232,7 +232,7 @@ Vue.component('component-alumnos',{
                                     <th>BUSCAR:</th>
                                     <th colspan="2"><input type="text" class="form-control" v-model="buscar"
                                         @keyup="listar()"
-                                        placeholder="Buscar por codigo o nombre"></th>
+                                        placeholder="Buscar por código o nombre"></th>
                                 </tr>
                                 <tr>
                                     <th>CODIGO</th>

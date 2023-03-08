@@ -177,7 +177,7 @@ Vue.component('component-inscripciones',{
                                     <th>BUSCAR:</th>
                                     <th colspan="2"><input type="text" class="form-control" v-model="buscar"
                                         @keyup="listar()"
-                                        placeholder="Buscar por nombre o nombre"></th>
+                                        placeholder="Buscar por materia o nombre"></th>
                                 </tr>
                                 <tr>
                                     <th>CODIGO</th>

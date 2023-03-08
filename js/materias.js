@@ -98,7 +98,7 @@ Vue.component('component-materias',{
                                     <th>BUSCAR:</th>
                                     <th colspan="2"><input type="text" class="form-control" v-model="buscar"
                                         @keyup="listar()"
-                                        placeholder="Buscar por codigo o nombre"></th>
+                                        placeholder="Buscar por código o nombre"></th>
                                 </tr>
                                 <tr>
                                     <th>CODIGO</th>
