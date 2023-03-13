@@ -25,7 +25,7 @@ class Docente {
         if (empty($this->datos['nombre'])){
             $this->respuesta['msg']= 'Por favor digite un nombre valido'; 
         }
-        return administrar_docente();
+        return $this.administrar_docente();
     }
     private function administrar_docente(){
 
