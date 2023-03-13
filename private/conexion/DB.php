@@ -1,6 +1,6 @@
 <?php
 class DB_Conexion{
-    private $conexion, $result;
+    private $conexion, $result, $prepare;
     public function DB_Conexion ($server, $user, $pass){ 
         $this->conexion = new PDO($server,$user,$pass,
         array(PDO::ATTR_EMULATE_PREPARES=>false, 

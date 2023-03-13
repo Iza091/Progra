@@ -20,20 +20,38 @@ Vue.component('component-docentes',{
     },
     methods:{
         guardarDocente(){
-            let store = this.abrirStore('tbldocentes', 'readwrite');
-            if(this.accion==='nuevo'){
-                this.docente.idDocente = new Date().getTime().toString(16);
+            if( this.docente.nombre=='' || 
+                this.docente.codigo=='' ){
+                console.log( 'Por favor ingrese los datos correspondientes' );
+                return;
             }
-            store.put( JSON.parse(JSON.stringify(this.docente) ) );
-            this.listar();
-            this.nuevoDocente();
+            let store = abrirStore("tbldocentes", 'readwrite');
+            if( this.accion==='nuevo' ){
+                this.docente.idDocente = new Date().getTime().toString(16);//las cantidad milisegundos y lo convierte en hexadecimal   
+            }
+            let query = store.put( JSON.parse( JSON.stringify(this.docente) ));
+            query.onsuccess = resp=>{
+                fetch(`private/modulos/docentes/docentes.php?docente=$JSON.stringify(this.docente)`)
+                .then(resp=>resp.json())
+                .then(resp=>{
+                    console.log(resp);
+                });
+                this.nuevoDocente();
+                this.listar();
+            };
+            query.onerror = err=>{
+                console.error('ERROR al guardar docente', err);
+            };
         },
         eliminarDocente(docente){
-            if( confirm(`Esta seguro de eliminar a ${docente.nombre}?`) ){
-                let store = this.abrirStore('tbldocentes', 'readwrite'),
+            if( confirm(`Esta seguro de eliminar el docente ${docente.nombre}?`) ){
+                let store = abrirStore('tbldocentes', 'readwrite'),
                     req = store.delete(docente.idDocente);
-                req.onsuccess = resp=>{
+                req.onsuccess = res=>{
                     this.listar();
+                };
+                req.onerror = err=>{
+                    console.error('ERROR al guardar docente');
                 };
             }
         },
