@@ -14,15 +14,21 @@ class DB_Conexion{
             $this->result= $this->prepare->execute($parametros);
 
         } catch (Exeption $e){
-          echo 'Error al ejecutar la consula'. $e->getMessage();  
+          return 'Error al ejecutar la consula'. $e->getMessage();  
         }
     }
     public function obtener_datos (){
         return $this->prepare->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function obtener_respuesta(){
-        return $this->result;
+    public function obtener($sql){
+        try{
+            return $this->conexion->query($sql);
+            return $this->result;
+        } catch (Exeption $e){
+            return 'Error: '.$e->getMessage();
+        }
+        
     }
 }
 ?>
